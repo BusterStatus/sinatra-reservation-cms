@@ -13,7 +13,7 @@ class ReservationsController < ApplicationController
             flash[:blank_fields] = "No fields can be left blank."
             redirect to '/reservations/new'
         else
-            @reservation = Reservation.create(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource]  , user_id: session[:user_id])
+            @reservation = Reservation.create(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource], user_id: session[:user_id])
             flash[:reservation_success] = "Reservation successful."
             redirect "/reservations/#{@reservation.id}"
         end
@@ -49,14 +49,16 @@ class ReservationsController < ApplicationController
     end
 
     patch '/reservations/:id' do
-        @tweet = Tweet.find(params[:id])
-        if @tweet
-            if params[:content] != ""
-
-                @tweet.update(content: params[:content])
-                redirect "/reservations/#{@tweet.id}"
+        @reservation = Reservation.find(params[:id])
+        if @reservation
+            if params[:name] == "" || params[:date] == "" || params[:resource] == "" || params[:contact] == ""
+                flash[:blank_fields] = "No fields can be left blank."
+                redirect "/reservations/#{@reservation.id}/edit"
             else
-                redirect "/reservations/#{@tweet.id}/edit"
+
+                @reservation.update(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource])
+                flash[:reservation_update_success] = "Reservation updated successfully."
+                redirect "/reservations/#{@reservation.id}"
             end
         end
     end

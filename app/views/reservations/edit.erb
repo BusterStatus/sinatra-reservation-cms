@@ -6,7 +6,7 @@
 <p><%= @reservation.resource %></p>
 <p><%= @reservation.contact %></p>
 
-<form action='/reservations' method="post" id="reservation">
+<form method="POST" action='/reservations/<%= @reservation.id %>' id="reservation">
 <input id="hidden" type="hidden" name="_method" value="patch">
     Name <input type="text" name="name" placeholder="<%= @reservation.name %>" required><br>
     Date <input type="date" name="date" placeholder="<%= @reservation.date %>" required><br>
