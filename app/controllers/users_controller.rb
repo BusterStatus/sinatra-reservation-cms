@@ -18,7 +18,11 @@ class UsersController < ApplicationController
             session[:user_id] = user.id
             flash[:new_account_success] = "Account creation successful.  You are now logged in."
             redirect to "/users/#{user.slug}"
-        else
+        elsif !(params[:password] != params[:password_confirmation])
+            flash[:password_mismatch] = "Passwords do not match.  Please try again."
+            erb :'/users/signup'
+        elsif !(params[:email] != params[:email_confirmation])
+            flash[:email_mismatch] = "Email addresses do not match.  Please try again."
             erb :'/users/signup'
         end
     end
