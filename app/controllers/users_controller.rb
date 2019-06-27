@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 
     get '/login' do
         if logged_in?
-
             redirect to "/users/#{current_user.slug}"
         else
           erb :'/users/login'
@@ -58,6 +57,7 @@ class UsersController < ApplicationController
     get '/users/:slug' do
         if logged_in?
             @user = User.find_by_slug(params[:slug])
+            @reservations = Reservation.all
             erb :'/users/show'
         else
             redirect to '/login'

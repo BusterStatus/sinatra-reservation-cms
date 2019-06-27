@@ -1,3 +1,18 @@
 <h1>Welcome, <%= @user.name %>!</h1>
 
+<h2>My Reservations</h2>
+
+<ul>
+<% @reservations.each do |reservation| %>
+    <% if reservation.user_id == current_user.id %>
+        <li><%= reservation.date.strftime('%a %d %b %Y') %></li>
+            <ul>
+                <li><%= reservation.name %></li>
+                <li><%= reservation.resource %></li>
+                <li><%= reservation.contact %></li>
+            </ul>
+    <% end %>
+<% end %>
+</ul>
+
 <p><%= flash[:new_account_success] %></p>

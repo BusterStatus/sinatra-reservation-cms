@@ -2,6 +2,7 @@ class ReservationsController < ApplicationController
 
     get '/reservations' do
         if logged_in?
+            @reservations = Reservation.all
             erb :'reservations/index'
         else
             redirect to '/login'
@@ -21,7 +22,8 @@ class ReservationsController < ApplicationController
             flash[:blank_fields] = "No fields can be left blank."
             redirect to '/reservations/new'
         else
-            @reservation = Reservation.create(params, user_id: session[:user_id])
+            @reservation = Reservation.create(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource]  , user_id: session[:user_id])
+            flash[:reservation_success] = "Reservation successful."
             redirect "/reservations/#{@reservation.id}"
         end
     end
@@ -30,7 +32,21 @@ class ReservationsController < ApplicationController
     get '/reservations/:id' do
         if logged_in?
             @reservation = Reservation.find(params[:id])
-            erb :'/reservations/show'
+            if current_user.id == @reservation.user_id
+                erb :'/reservations/show'
+            else
+                redirect "/users/#{current_user.slug}"
+                flash[:unauthorized] = "You do not have access to this page."
+            end
+        else
+          redirect '/login'
+        end
+    end
+
+    get '/reservations/:id/edit' do
+        if logged_in?
+            @reservation = Reservation.find(params[:id])
+            erb :'/reservations/edit'
         else
           redirect '/login'
         end

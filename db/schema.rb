@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2) do
     t.datetime "date"
     t.string   "resource"
     t.string   "contact"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
