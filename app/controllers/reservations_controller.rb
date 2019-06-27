@@ -64,12 +64,11 @@ class ReservationsController < ApplicationController
     end
 
     delete '/reservations/:id' do
-        @user = User.find_by(id: session[:user_id])
-        if !@user.nil?
-            @tweet = Tweet.find(params[:id])
-            if @tweet.user_id == session[:user_id]
-                @tweet.delete
-                redirect '/reservations'
+        if logged_in?
+            reservation = Reservation.find(params[:id])
+            if reservation.user_id == session[:user_id]
+                reservation.delete
+                redirect "/users/#{current_user.slug}"
             end
         else
             redirect '/login'

@@ -1,4 +1,4 @@
-<h1>Edit the selected reservation</h1>
+<h1>Edit or delete the selected reservation</h1>
 
 <h2>Current Reservation Options</h2>
 <p><%= @reservation.name %></p>
@@ -18,5 +18,10 @@
     <option value="opel">Opel</option>
     <option value="audi">Audi</option>
 </select><br>
-    <input type="submit" id="submit" value="Update Reservation">
+    <input type="submit" id="submit" value="Update Reservation"><br>
+</form>
+
+<form method="POST" action='/reservations/<%= @reservation.id %>'>
+<input id="hidden" type="hidden" name="_method" value="delete">
+<input type="submit" id="submit" value="Delete Reservation"><br>
 </form>
