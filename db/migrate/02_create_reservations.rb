@@ -5,6 +5,7 @@ class CreateReservations < ActiveRecord::Migration
             t.datetime :date
             t.string :resource
             t.string :contact
+            t.integer :user_id
         end
     end
 end

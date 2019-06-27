@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
     get '/' do
-        erb :welcome
+        redirect to '/login'
     end
 
     get '/signup' do
