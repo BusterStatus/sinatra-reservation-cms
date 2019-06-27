@@ -1,14 +1,5 @@
 class ReservationsController < ApplicationController
 
-    get '/reservations' do
-        if logged_in?
-            @reservations = Reservation.all
-            erb :'reservations/index'
-        else
-            redirect to '/login'
-        end
-    end
-
     get '/reservations/new' do
         if logged_in?
             erb :'reservations/new'
@@ -46,19 +37,14 @@ class ReservationsController < ApplicationController
     get '/reservations/:id/edit' do
         if logged_in?
             @reservation = Reservation.find(params[:id])
-            erb :'/reservations/edit'
+            if current_user.id == @reservation.user_id
+                erb :'/reservations/edit'
+            else
+                redirect "/users/#{current_user.slug}"
+                flash[:unauthorized] = "You do not have access to this page."
+            end
         else
           redirect '/login'
-        end
-    end
-
-    get '/reservations/:id/edit' do
-        @user = User.find_by(id: session[:user_id])
-        if !@user.nil?
-            @tweet = Tweet.find(params[:id])
-            erb :'/reservations/edit'
-        else
-            redirect '/login'
         end
     end
 

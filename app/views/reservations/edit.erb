@@ -1,0 +1,22 @@
+<h1>Edit the selected reservation</h1>
+
+<h2>Current Reservation Options</h2>
+<p><%= @reservation.name %></p>
+<p><%= @reservation.date.strftime('%a %d %b %Y') %></p>
+<p><%= @reservation.resource %></p>
+<p><%= @reservation.contact %></p>
+
+<form action='/reservations' method="post" id="reservation">
+<input id="hidden" type="hidden" name="_method" value="patch">
+    Name <input type="text" name="name" placeholder="<%= @reservation.name %>" required><br>
+    Date <input type="date" name="date" placeholder="<%= @reservation.date %>" required><br>
+    Contact <input type="text" name="contact" placeholder="<%= @reservation.contact %>" required><br>
+    Resource <select name="resource" form="reservation" required>
+    <option value="select"></option>
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+</select><br>
+    <input type="submit" id="submit" value="Update Reservation">
+</form>

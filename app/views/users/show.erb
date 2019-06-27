@@ -5,12 +5,13 @@
 <ul>
 <% @reservations.each do |reservation| %>
     <% if reservation.user_id == current_user.id %>
-        <li><%= reservation.date.strftime('%a %d %b %Y') %></li>
+        <li><a href="/reservations/<%= reservation.id %>"><%= reservation.date.strftime('%a %d %b %Y') %></a></li>
             <ul>
                 <li><%= reservation.name %></li>
                 <li><%= reservation.resource %></li>
                 <li><%= reservation.contact %></li>
             </ul>
+        <a href="/reservations/<%= reservation.id %>/edit">Edit Reservation</a>
     <% end %>
 <% end %>
 </ul>

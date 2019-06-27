@@ -17,13 +17,9 @@
 
     <div class="wrapper">
 
-    <div align="right">
     <% if logged_in? %>
-      <form action="/logout" method="post">
-      <input type="submit" name="logout" value="Logout">
-      </form>
+      <a href="/logout">Logout</a>
     <% end %>
-    </div>
 
     <p><%= flash[:reservation_success] %></p>
 

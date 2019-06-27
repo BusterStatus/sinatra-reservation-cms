@@ -1,13 +1,14 @@
 <form action='/reservations' method="post" id="reservation">
-    Name <input type="text" name="name"><br>
-    Date <input type="date" name="date"><br>
-    Contact <input type="text" name="contact"><br>
+    Name <input type="text" name="name" required><br>
+    Date <input type="date" name="date" required><br>
+    Contact <input type="text" name="contact" required><br>
     <input type="submit" id="submit" value="Create Reservation">
 </form>
 
-<select name="resource" form="reservation">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="opel">Opel</option>
-  <option value="audi">Audi</option>
+<select name="resource" form="reservation" required>
+    <option value="select"></option>
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
 </select>
