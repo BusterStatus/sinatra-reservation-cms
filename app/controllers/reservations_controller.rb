@@ -68,6 +68,7 @@ class ReservationsController < ApplicationController
             reservation = Reservation.find(params[:id])
             if reservation.user_id == session[:user_id]
                 reservation.delete
+                flash[:reservation_delete_success] = "Reservation deleted successfully."
                 redirect "/users/#{current_user.slug}"
             end
         else
