@@ -13,8 +13,8 @@ class ReservationsController < ApplicationController
             flash[:blank_fields] = "No fields can be left blank."
             redirect to '/reservations/new'
         else
-            @reservation = Reservation.create(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource], user_id: session[:user_id])
-            if @reservation
+            @reservation = Reservation.new(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource], user_id: session[:user_id])
+            if @reservation.save
                 flash[:reservation_success] = "Reservation successful."
                 redirect "/reservations/#{@reservation.id}"
             else
