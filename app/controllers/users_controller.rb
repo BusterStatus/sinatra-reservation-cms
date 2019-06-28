@@ -14,23 +14,23 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-        if params[:password] == params[:password_confirmation] && params[:email] == params[:email_confirmation]
-            user = User.create(name: params[:name], username: params[:username].downcase, email: params[:email].downcase, password: params[:password], password_confirmation: params[:password_confirmation])
+        if params[:password] != params[:password_confirmation]
+            flash[:password_mismatch] = "Passwords do not match.  Please try again."
+            redirect to '/signup'
+        elsif params[:email].downcase != params[:email_confirmation].downcase
+            flash[:email_mismatch] = "Email addresses do not match.  Please try again."
+            redirect to '/signup'
+        elsif User.find_by(email: params[:email])
+            flash[:email_already_in_use] = "An account with this email address already exists.  Please try again."
+            redirect to '/signup'
+        elsif User.find_by(username: params[:username])
+            flash[:username_already_in_use] = "An account with this username already exists.  Please try again."
+            redirect to '/signup'
+        elsif params[:password] == params[:password_confirmation] && params[:email] == params[:email_confirmation]
+            user = User.create(name: params[:name], username: params[:username].downcase, email: params[:email].downcase, email_confirmation: params[:email_confirmation].downcase, password: params[:password], password_confirmation: params[:password_confirmation])
             session[:user_id] = user.id
             flash[:new_account_success] = "Account creation successful.  You are now logged in."
             redirect to "/users/#{user.slug}"
-        elsif !(params[:password] != params[:password_confirmation])
-            flash[:password_mismatch] = "Passwords do not match.  Please try again."
-            erb :'/users/signup'
-        elsif !(params[:email] != params[:email_confirmation])
-            flash[:email_mismatch] = "Email addresses do not match.  Please try again."
-            erb :'/users/signup'
-        elsif User.find_by(email: params[:email])
-            flash[:email_already_in_use] = "An account with this email address already exists.  Please try again."
-            erb :'/users/signup'
-        elsif User.find_by(username: params[:username])
-            flash[:username_already_in_use] = "An account with this username already exists.  Please try again."
-            erb :'/users/signup'
         end
     end
 
