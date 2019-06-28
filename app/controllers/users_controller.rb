@@ -30,7 +30,6 @@ class UsersController < ApplicationController
 
     get '/login' do
         if logged_in?
-            flash[:logged_in] = "You are already logged in."
             redirect to "/users/#{current_user.slug}"
         else
           erb :'/users/login'
@@ -43,7 +42,8 @@ class UsersController < ApplicationController
             session[:user_id] = user.id
             redirect to "/users/#{current_user.slug}"
         else
-          redirect "/login"
+            flash[:login_failure] = "Email or password did not match our records.  Please try again."
+            redirect "/login"
         end
     end
 
@@ -61,9 +61,9 @@ class UsersController < ApplicationController
             @user = User.find_by_slug(params[:slug])
             reservations = Reservation.all
             @reservations = reservations.sort_by { |reservation| reservation.date }
-            flash[:view_account_failure] = "You must be logged in to view your account page."
             erb :'/users/show'
         else
+            flash[:view_account_failure] = "You must be logged in to view your account page."
             redirect to '/login'
         end
     end

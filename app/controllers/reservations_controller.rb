@@ -14,8 +14,13 @@ class ReservationsController < ApplicationController
             redirect to '/reservations/new'
         else
             @reservation = Reservation.create(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource], user_id: session[:user_id])
-            flash[:reservation_success] = "Reservation successful."
-            redirect "/reservations/#{@reservation.id}"
+            if @reservation
+                flash[:reservation_success] = "Reservation successful."
+                redirect "/reservations/#{@reservation.id}"
+            else
+                flash[:reservation_failure] = "Selected resource already reserved on the chosen day.  Please try again."
+                redirect to '/reservations/new'
+            end
         end
     end
 
@@ -71,6 +76,20 @@ class ReservationsController < ApplicationController
                 flash[:reservation_delete_success] = "Reservation deleted successfully."
                 redirect "/users/#{current_user.slug}"
             end
+        else
+            redirect '/login'
+        end
+    end
+
+    delete '/reservations' do
+        if logged_in?
+            Reservation.all.each do |reservation|
+                if reservation.user_id == session[:user_id]
+                    reservation.delete
+                end
+            end
+            flash[:reservation_delete_all_success] = "All reservations deleted successfully."
+            redirect "/users/#{current_user.slug}"
         else
             redirect '/login'
         end
