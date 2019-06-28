@@ -1,16 +1,17 @@
-<h1>Edit or delete the selected reservation</h1>
+<h2>Edit or Delete Selected Reservation</h2>
 
-<h2>Current Reservation Options</h2>
-<p><%= @reservation.name %></p>
-<p><%= @reservation.date.strftime('%a %d %b %Y') %></p>
-<p><%= @reservation.resource %></p>
-<p><%= @reservation.contact %></p>
+<p><b>Current Reservation Information</b></p>
+<%= @reservation.name %><br>
+<%= @reservation.date.strftime('%a %d %b %Y') %><br>
+<%= @reservation.resource %><br>
+<%= @reservation.contact %><br>
+<br>
 
 <form method="POST" action='/reservations/<%= @reservation.id %>' id="reservation">
 <input id="hidden" type="hidden" name="_method" value="patch">
-    Name <input type="text" name="name" placeholder="<%= @reservation.name %>" required><br>
-    Date <input type="date" name="date" placeholder="<%= @reservation.date %>" required><br>
-    Contact <input type="text" name="contact" placeholder="<%= @reservation.contact %>" required><br>
+    Name <input type="text" name="name" value="<%= @reservation.name %>" required><br>
+    Date <input type="date" name="date" value="<%= @reservation.date %>" required><br>
+    Contact <input type="text" name="contact" value="<%= @reservation.contact %>" required><br>
     Resource <select name="resource" form="reservation" required>
     <option value="select"></option>
     <option value="volvo">Volvo</option>
@@ -18,6 +19,7 @@
     <option value="opel">Opel</option>
     <option value="audi">Audi</option>
 </select><br>
+<br>
     <input type="submit" id="submit" value="Update Reservation"><br>
 </form>
 

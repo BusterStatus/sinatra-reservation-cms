@@ -14,18 +14,19 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+        <div class="wrapper">
 
-    <div class="wrapper">
 
-    <% if logged_in? %>
-      <a href="/logout">Logout</a>
-    <% end %>
+      <h1>Reservation System</h1>
+      
+      <%= yield %>
 
-    <p><%= flash[:reservation_success] %></p>
-
-        <%= yield %>
+  
+      <p><%= flash[:reservation_success] %></p>
+      <p><%= flash[:new_account_success] %></p>
 
       <footer class="branding">
+      <nav><a href="/">Home</a><% if logged_in? %> | <a href="/logout">Logout</a><% end %></nav><br>
         <small>&copy; 2019 <strong>LearnSinatraCmsApp</strong></small>
       </footer>
     </div>
