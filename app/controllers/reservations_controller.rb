@@ -41,8 +41,8 @@ class ReservationsController < ApplicationController
             if current_user.id == @reservation.user_id
                 erb :'/reservations/show'
             else
-                redirect "/users/#{current_user.slug}"
                 flash[:unauthorized] = "You do not have access to this page."
+                redirect "/users/#{current_user.slug}"
             end
         else
           redirect '/login'
@@ -56,7 +56,7 @@ class ReservationsController < ApplicationController
                 erb :'/reservations/edit'
             else
                 redirect "/users/#{current_user.slug}"
-                flash[:unauthorized] = "You do not have access to this page."
+                flash[:unauthorized] = "You cannot view a reservation created by another user."
             end
         else
           redirect '/login'
@@ -70,11 +70,16 @@ class ReservationsController < ApplicationController
                 flash[:blank_fields] = "No fields can be left blank."
                 redirect "/reservations/#{@reservation.id}/edit"
             else
-
-                @reservation.update(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource])
-                flash[:reservation_update_success] = "Reservation updated successfully."
-                redirect "/reservations/#{@reservation.id}"
+                if @reservation.update(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource])
+                    flash[:reservation_success] = "Reservation successful."
+                    redirect "/reservations/#{@reservation.id}"
+                else
+                    flash[:reservation_failure] = "Selected resource already reserved on the chosen day.  Please try again."
+                    redirect to "/reservations/#{@reservation.id}/edit"
+                end
             end
+
+            
         end
     end
 
