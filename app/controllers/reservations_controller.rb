@@ -1,5 +1,15 @@
 class ReservationsController < ApplicationController
 
+    get '/reservations' do
+        if logged_in?
+            reservations = Reservation.all
+            @reservations = reservations.sort_by { |reservation| reservation.date }
+            erb :'reservations/index'
+        else
+            redirect to '/login'
+        end
+    end
+
     get '/reservations/new' do
         if logged_in?
             erb :'reservations/new'

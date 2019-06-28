@@ -39,7 +39,7 @@
       <p><%= flash[:reservation_delete_all_success] %></p>
       
       <footer class="branding">
-      <nav><a href="/">Home</a><% if logged_in? %> | <a href="/users/<%=current_user.slug %>">Create or Modify Reservations</a> | <a href="/logout">Logout</a><% end %></nav><br>
+      <nav><a href="/">Home</a><% if logged_in? %> | <a href="/reservations">All Reservations</a> | <a href="/users/<%=current_user.slug %>">My Reservations</a> | <a href="/logout">Logout</a><% end %></nav><br>
         <small>&copy; 2019 <strong>LearnSinatraCmsApp</strong></small>
       </footer>
     </div>
