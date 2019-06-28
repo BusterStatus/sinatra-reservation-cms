@@ -22,6 +22,9 @@ class ReservationsController < ApplicationController
         if params[:name] == "" || params[:date] == "" || params[:resource] == "" || params[:contact] == ""
             flash[:blank_fields] = "No fields can be left blank."
             redirect to '/reservations/new'
+        elsif params[:date] < Time.now
+            flash[:no_past_reservations] = "You cannot make a reservation for a past date."
+            redirect to '/reservations/new'
         else
             @reservation = Reservation.new(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource], user_id: session[:user_id])
             if @reservation.save
@@ -69,6 +72,9 @@ class ReservationsController < ApplicationController
             if params[:name] == "" || params[:date] == "" || params[:resource] == "" || params[:contact] == ""
                 flash[:blank_fields] = "No fields can be left blank."
                 redirect "/reservations/#{@reservation.id}/edit"
+            elsif params[:date] < Time.now
+                flash[:no_past_reservations] = "You cannot make a reservation for a past date."
+                redirect to "/reservations/#{@reservation.id}"
             else
                 if @reservation.update(name: params[:name], date: params[:date], contact: params[:contact], resource: params[:resource])
                     flash[:reservation_success] = "Reservation successful."

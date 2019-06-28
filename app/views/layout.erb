@@ -39,6 +39,8 @@
       <p><%= flash[:reservation_delete_all_success] %></p>
       <p><%= flash[:email_already_in_use] %></p>
       <p><%= flash[:username_already_in_use] %></p>
+      <p><%= flash[:no_past_reservations] %></p>
+      
       
       <footer class="branding">
       <nav><a href="/">Home</a><% if logged_in? %> | <a href="/reservations">All Reservations</a> | <a href="/users/<%=current_user.slug %>">My Reservations</a> | <a href="/logout">Logout</a><% end %></nav><br>
