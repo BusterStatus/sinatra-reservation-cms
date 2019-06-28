@@ -57,8 +57,8 @@ class UsersController < ApplicationController
     get '/users/:slug' do
         if logged_in?
             @user = User.find_by_slug(params[:slug])
-            @reservations = Reservation.all
-            @reservations.sort_by { |reservation| reservation.date }
+            reservations = Reservation.all
+            @reservations = reservations.sort_by { |reservation| reservation.date }
             erb :'/users/show'
         else
             redirect to '/login'

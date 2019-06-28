@@ -1,5 +1,7 @@
 <h2><%= @user.name %>'s Reservations</h2>
 
+<a href="/reservations/new">Create a New Reservation</a><br>
+<br>
 <ul>
 <% @reservations.each do |reservation| %>
     <% if reservation.user_id == current_user.id %>
@@ -11,8 +13,6 @@
             </ul>
         <a href="/reservations/<%= reservation.id %>/edit">Edit or Delete Reservation</a><br>
         <br>
-    <% elsif @reservations.nil? %>
-        <p>You have no reservations.  <a href="/reservations/new">Create a new reservation</a>.</p>
     <% end %>
 <% end %>
 </ul>
