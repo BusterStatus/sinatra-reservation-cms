@@ -25,6 +25,12 @@ class UsersController < ApplicationController
         elsif !(params[:email] != params[:email_confirmation])
             flash[:email_mismatch] = "Email addresses do not match.  Please try again."
             erb :'/users/signup'
+        elsif User.find_by(email: params[:email])
+            flash[:email_already_in_use] = "An account with this email address already exists.  Please try again."
+            erb :'/users/signup'
+        elsif User.find_by(username: params[:username])
+            flash[:username_already_in_use] = "An account with this username already exists.  Please try again."
+            erb :'/users/signup'
         end
     end
 
