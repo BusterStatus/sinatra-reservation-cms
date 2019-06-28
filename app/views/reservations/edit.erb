@@ -13,7 +13,7 @@
     Date <input type="date" name="date" value="<%= @reservation.date %>" required><br>
     Contact <input type="text" name="contact" value="<%= @reservation.contact %>" required><br>
     Resource <select name="resource" form="reservation" required>
-    <option value="select"></option>
+    <option value="" selected disabled hidden>Select a Resource</option>
     <option value="volvo">Volvo</option>
     <option value="saab">Saab</option>
     <option value="opel">Opel</option>

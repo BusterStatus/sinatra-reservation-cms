@@ -1,13 +1,11 @@
 <h2><%= @reservation.name %>'s Reservation for <%= @reservation.date.strftime('%a %d %b %Y') %></h2>
 
 <ul>
-    <li>Reservation Information</li>
-        <ul>
-            <li><%= @reservation.name %></li>
-            <li><%= @reservation.date.strftime('%a %d %b %Y') %></li>
-            <li><%= @reservation.resource %></li>
-            <li><%= @reservation.contact %></li>
-        </ul>
-        <a href="/reservations/<%= @reservation.id %>/edit">Edit or Delete Reservation</a><br>
-        <a href="/users/<%= current_user.id %>Return to <%= current_user.name %>'s Reservations</a>
-</ul>
+    <li><%= @reservation.name %></li>
+    <li><%= @reservation.date.strftime('%a %d %b %Y') %></li>
+    <li><%= @reservation.resource %></li>
+    <li><%= @reservation.contact %></li>
+</ul><br>
+<a href="/reservations/<%= @reservation.id %>/edit">Edit or Delete Reservation</a><br>
+<a href="/users/<%= current_user.id %>Return to <%= current_user.name %>'s Reservations</a><br>
+<br>

@@ -4,13 +4,13 @@
     Name <input type="text" name="name" required><br>
     Date <input type="date" name="date" required><br>
     Contact <input type="text" name="contact" required><br>
-    <input type="submit" id="submit" value="Create Reservation">
-</form>
-
-<select name="resource" form="reservation" required>
-    <option value="select"></option>
+    Resource <select name="resource" form="reservation" required>
+    <option value="" selected disabled hidden>Select a Resource</option>
     <option value="volvo">Volvo</option>
     <option value="saab">Saab</option>
     <option value="opel">Opel</option>
     <option value="audi">Audi</option>
-</select>
+    </select><br>
+    <br>
+    <input type="submit" id="submit" value="Create Reservation">
+</form>
