@@ -64,10 +64,15 @@ class UsersController < ApplicationController
 
     get '/users/:slug' do
         if logged_in?
-            @user = User.find_by_slug(params[:slug])
-            reservations = Reservation.all
-            @reservations = reservations.sort_by { |reservation| reservation.date }
-            erb :'/users/show'
+            if current_user.id == User.find_by_slug(params[:slug]).id
+                @user = current_user
+                reservations = Reservation.all
+                @reservations = reservations.sort_by { |reservation| reservation.date }
+                erb :'/users/show'
+            else
+                flash[:view_other_user_account] = "You cannot view another user's account page."
+                redirect to "/users/#{current_user.slug}"
+            end
         else
             flash[:view_account_failure] = "You must be logged in to view your account page."
             redirect to '/login'
