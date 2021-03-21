@@ -1,15 +1,21 @@
 # Sinatra Reservation CMS
 
-I wrote this Reservation System in Ruby, specifically using Sinatra, to demonstrate how to create a basic application with which a user can create an account and login as well as create, read, update, and delete reservations for resources such as vehicles.
+Sinatra Reservation CMS is a reservation application written in Ruby and using the Sinatra gem.  Users can create an account and login as well as create, read, update, and delete reservations for resources such as vehicles.  Check out a [live demo](https://sinatra-reservation-cms.herokuapp.com/).
 
-## How to Install
+[![sinatra-reservation-cms-demo](http://img.youtube.com/vi/KVKkFuozbyw/0.jpg)](http://www.youtube.com/watch?v=KVKkFuozbyw "Sinatra Reservation CMS Demo")
 
-Clone this repository, run bundle in your terminal, run rake dB:migrate in your terminal to create the database, and run shotgun to start the application locally.
+## Prerequisites/Installation
 
-## Contributor's Guide
+1. Clone the repository
+2. Run `bundle install` or similar in the main directory
+3. Run `rake db:create` and `rake db:migrate`
+4. Run `shotgun` to start the application
 
-Please feel free to submit any issues or suggest improvements via Github.  I plan to continue tinkering with this project over time, so any feedback is appreciated.
+## Feedback
+
+If you have any feedback or want to contribute, then feel free to reach out to me and/or open an issue/pull request.
 
 ## License
 
 [MIT License](https://github.com/BusterStatus/sinatra-reservation-cms/blob/master/LICENSE)
+
